@@ -1,0 +1,81 @@
+version: '3.4'
+
+
+volumes:
+  django_media:
+  django_static:
+  postgres_data:
+
+
+x-python: &python
+  build: .
+  restart: unless-stopped
+  user: 1000:1000
+  env_file: .env
+  depends_on:
+    - cache
+    - db
+  volumes:
+    - django_media:/app/media/:rw
+    - django_static:/app/static_root/:rw
+
+x-site: &site
+  <<: *python
+  depends_on:
+    - worker
+  command: "./manage.py runserver"
+
+x-web: &web
+  image: docker.io/snakesoft/djanginx:1.0
+  restart: unless-stopped
+  depends_on:
+    - worker
+  volumes:
+    - django_media:/app/media/:ro
+    - django_static:/app/static_root/:ro
+
+
+services:
+  cache:
+    image: redis/redis-stack-server:7.4.0-v1
+    restart: unless-stopped
+
+  db:
+    image: postgres:17.2-alpine
+    restart: unless-stopped
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${DB_NAME:-shop}
+      POSTGRES_USER: ${DB_USER:-shop}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-shop}
+    #ports:
+    #  - "127.0.0.1:${DB_EXPOSE_PORT:-5432}:5432"
+
+  worker:
+    <<: *python
+    command:
+      - /bin/bash
+      - -c
+      - |
+         python3 manage.py collectstatic --noinput
+         python3 manage.py migrate
+         celery -A config worker -c 3 -B --loglevel=info
+
+
+# >
+# Site 1:
+  site_1:
+    <<: *site
+    environment:
+      SITE_ID: 1
+      DOMAIN: localhost
+
+  web_1:
+    <<: *web
+    ports:
+      - "${SITE_1_PORT}:80"
+    environment:
+      LISTEN_DOMAIN: ${SITE_1_DOMAIN}
+      SITE_HOSTNAME: site_1
+
