@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Tree List {{ object }}</h1>
+    {{ object.root }}
+depth:{{depth}}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                {% for directory in directories %}
+                    {% if directory.depth <= show_depth %}
+                        {% include "./directory.html" %}
+                    {% endif %}
+                    {% if directory.is_open and directory.path == selected_path %}
+                        {% for file in files %}
+                            {% include "./file.html" %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

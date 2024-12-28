@@ -1,0 +1,10 @@
+{% extends "./base.html" %}
+
+{% block content %}
+    <h1>Tree List</h1>
+    <ul>
+        {% for tree in object_list %}
+            <li><a href="{% url 'tree:detail' pk=tree.pk %}">{{ tree.id }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,11 @@
+{# Loads Content into the main modal #}
+<button
+        type="button"
+        class="btn btn-{% if type %}{{ type }}{% else %}link{% endif %} {{ classes }}"
+        hx-get="{{ url }}"
+        hx-swap="none"
+        hx-indicator="#modal-spinner"
+        hx-push-url="{% if push_url %}{{ push_url }}{% else %}false{% endif %}"
+        onclick="showModal();">
+    {{ text }}
+</button>

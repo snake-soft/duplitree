@@ -1,0 +1,15 @@
+{% comment %}
+This creates a link using hx-boost.
+Use this if you want to create a hybride View that is usable as modal or standalone.
+{% endcomment %}
+<a
+        class="btn btn-{% if type %}{{ type }}{% else %}link{% endif %} {{ classes }}"
+        href="{{ url }}"
+        role="button"
+        hx-boost="true"
+        hx-swap="none"
+        hx-indicator="#modal-spinner"
+        hx-push-url="{% if push_url %}{{ push_url }}{% else %}false{% endif %}"
+        onclick="showModal();">
+    {{ text }}
+</a>

@@ -1,0 +1,11 @@
+<div class="row">
+    <div class="col-auto" style="margin-left: {% widthratio directory.depth 1 20 %}px;">
+        <a href="{{ directory.get_absolute_url }}" class="btn btn-link text-dark text-decoration-none p-0">
+            <i class="fa-regular fa-folder{% if directory.is_open %}-open{% endif %}"></i>
+             {{ directory }} depth:{{ directory.depth }}
+        </a>
+    </div>
+    <div class="col">
+        Size: {{ directory.size }}
+    </div>
+</div>

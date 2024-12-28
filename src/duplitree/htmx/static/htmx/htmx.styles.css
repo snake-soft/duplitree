@@ -1,0 +1,10 @@
+.htmx-indicator{
+    visibility: hidden;
+    transition: opacity 500ms ease-in;
+}
+.htmx-request .htmx-indicator{
+    visibility: visible;
+}
+.htmx-request.htmx-indicator{
+    visibility: visible;
+}

@@ -1,0 +1,35 @@
+{% load static django_htmx htmx %}
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Duplitree{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'fontawesome/6.7.2/css/all.min.css' %}" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="{% static 'fontawesome/6.7.2/js/all.min.js' %}" integrity="sha512-b+nQTCdtTBIRIbraqNEwsjB6UvL3UEMkXnhzd8awtCYh0Kcsjl9uEgwVFVbhoj3uu1DO1ZMacNvLoyJJiNfcvg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    {% htmx_head %}
+</head>
+<body>
+    <header>
+    </header>
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h2>{% block page_title %}Duplitree{% endblock %}</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+    </footer>
+    {% include 'htmx/modal/modal.html' %}
+    {% django_htmx_script %}
+</body>
+</html>

@@ -3,3 +3,6 @@ psycopg2>=2.8
 celery~=5.4.0
 django-celery-results~=2.5.1
 redis~=5.2.1
+django-extensions~=3.2.3
+django-debug-toolbar~=4.4.6
+django-htmx~=1.21.0

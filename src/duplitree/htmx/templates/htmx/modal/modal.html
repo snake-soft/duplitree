@@ -1,0 +1,34 @@
+{% load i18n %}
+
+<div id="modal" class="modal fade" tabindex="-1" hx-swap-oob="innerHTML">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl modal-fullscreen-lg-down">
+    {% block modal-content %}
+      <div id="modal-content" class="modal-content">
+        <div id="modal-spinner" class="htmx-indicator d-flex justify-content-center position-absolute w-100 h-100 bg-white" style="z-index:100;">
+          <div class="spinner-border m-auto" role="status">
+            <span class="visually-hidden">{% trans 'Lade' %}...</span>
+          </div>
+        </div>
+        <div id="modal-header" class="modal-header">
+          {% block modal-header %}
+            {% block modal-title %}
+              <h5 id="modal-title" class="modal-title"></h5>
+            {% endblock modal-title %}
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          {% endblock modal-header %}
+        </div>
+        <div id="modal-body" class="modal-body">
+          {% block modal-body %}
+            {% block content %}
+            {% endblock content %}
+          {% endblock modal-body %}
+        </div>
+        <div id="modal-footer" class="modal-footer">
+          {% block modal-footer %}
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans 'Schließen' %}</button>
+          {% endblock modal-footer %}
+        </div>
+      </div>
+    {% endblock modal-content %}
+  </div>
+</div>

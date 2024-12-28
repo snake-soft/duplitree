@@ -1,0 +1,16 @@
+{% load filesize %}
+<div class="row">
+    <div class="col-auto" style="margin-left: {% widthratio entity.depth 1 20 %}px;">
+        <i class="fa-regular {{ entity.fa_icon }}"></i> {{ entity.name }}
+    </div>
+    <div class="col d-flex justify-content-end">
+        same_hash_count: {{ entity.same_hash_count }}
+        <i class="fa-solid fa-layer-group"></i> {{ entity.depth }}
+        <i class="fa-solid fa-hashtag"></i> {{ entity.hash }}
+        <i class="fa-solid fa-compact-disc"></i> {{ entity.size | human_readable_size }}
+    </div>
+    <div class="col">
+        {% url 'tree:file' pk=file.pk as url %}
+        {% include 'htmx/modal/link.html' with text='<i class="fa-solid fa-bars"></i>' url=url classes='p-0' %}
+    </div>
+</div>
